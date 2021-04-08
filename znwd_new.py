@@ -7,19 +7,17 @@ import pickle
 from fuzzywuzzy import fuzz
 import math
 from scipy import sparse
-from sklearn import cross_validation
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
-from sklearn.svm import SVC
 from scipy.sparse import lil_matrix
-import jieba.posseg as pseg
-import sys
-import pandas as pd
 from sklearn.naive_bayes import MultinomialNB
-# from transform_wav import *
-from speech_recognition import *
+from znwd_1233 import load_corpus_data
 import warnings
 warnings.filterwarnings("ignore")
+
+'''
+    @brief: 用于序列化分类模型及模糊匹配相关数据文件
+'''
 
 
 def load_label_url():
@@ -225,44 +223,12 @@ if __name__ == "__main__":
     with open('stop_words.txt', 'rb') as f:
         stop_words = f.read().splitlines()
 
-    question_greeting = []
-    answer_greeting = []
-    with open("greeting.csv", 'r',encoding='utf-8') as f:
-        greeting = csv.reader(f)
-        header = next(greeting)
-        for words in greeting:
-            question_greeting.append(words[0])
-            answer_greeting.append(words[1])
-
+    #sklearn分类数据
     filename = 'znwd_corpus.csv'
-    corpus, label = load_cut_save(filename,load=False)
-    # model, tfidf, tag = train_model()
-    # print("*****************智能问答机器人*********************")
-    # print("请问有什么可以帮助您？")
-    # while True:
-    #     button = input("按下 T/t 后开始讲话\n")
-    #     if button == 'T' or button == 't':
-    #         # record_wav()   #语音接口
-    #         _result  = client.asr(get_file_content('test.wav'), 'wav', 16000)  #语音转文字
-    #         if _result['err_msg'] == 'success.':
-    #             query = _result['result'][0]    #########此处会因语音无法识别还报错
-    #             print("我 > %s" %query)
-    #            ##############
-    #             answer3 = get_greeting(query,question_greeting,answer_greeting)
-    #             # print(answer3)
-    #             if answer3 is None:
-    #                 answer1 = model_predict(query)
-    #                 answer2 = sim(query)
-    #             else:
-    #                 answer1 = None
-    #                 answer2 = None
-    #             ans = [answer1,answer2,answer3]
-    #             ans_show(ans)
-    #         else:
-    #             print("语音识别有误请重新输入！")
-    #             continue
-    #
-    #     else:
-    #         print("请按T或者t键开始讲话")
+    corpus, label = load_cut_save(filename,load=True)
+    train_model()
 
+    #模糊匹配数据
+    filename_1233 = 'znwd_1233.csv'
+    corpus, label, question, answer = load_corpus_data(filename_1233,load=True)
 

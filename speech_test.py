@@ -10,11 +10,7 @@ from scipy import sparse
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from scipy.sparse import lil_matrix
-import jieba.posseg as pseg
-import sys
-import pandas as pd
 from sklearn.naive_bayes import MultinomialNB
-from speech_recognition import *
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -119,7 +115,7 @@ def model_predict(input_str):
     prob = model.predict_proba(tfidf).max()
     name_id = load_label_url()
     if prob >= 0.5:
-        answer1 = str(classifiction[0],'utf-8')
+        answer1 = str(classifiction[0])
     else:
         answer1 = None
     return answer1
@@ -157,15 +153,9 @@ def similarity(input_questions):
         for i in range(2):
             an = {"question":question[train[i][0]],"answer":answer[train[i][0]]}
             answer2.append(an)
-            # print("%d、" % (i + 1), \
-            #     " 问题：%s\n" % str(question[train[i][0]],'utf-8'), \
-            #     " 答案：%s" % str(answer[train[i][0]],'utf-8'))
     elif len(text) == 1:
         an = {"question": question[list(text.keys())[0]], "answer": answer[list(text.keys())[0]]}
         answer2.append(an)
-        # print("与您提的疑问相似的问题有：\n", \
-        #     " 问题：%s" % str(question[text.keys()[0]],'utf-8'), \
-        #     " 答案：%s" % str(answer[text.keys()[0]],'utf-8'))
     else:
         # print("您所提的疑问无其他相似问题！")
         an = {"question":None,"answer":None}
@@ -207,14 +197,14 @@ def ans_show(returnSet):
             ans1 = "小Y还知道其他一些问题例如：\n"
             ans2 = ""
             for i in range(len(returnSet[1])):
-                ans2 = ans2 + "%d、" % (i + 1) + " 问题：%s\n" % str(returnSet[1][i]['question'],'utf-8') + " 答案：%s" % str(returnSet[1][i]['answer'],'utf-8')
+                ans2 = ans2 + "%d、" % (i + 1) + " 问题：%s\n" % str(returnSet[1][i]['question']) + " 答案：%s" % str(returnSet[1][i]['answer'])
             ans1 = ans1 + ans2
         ans = ans + ans1
     elif returnSet[1][0]['question'] is not None:
         ans1 = "小Y知道相似的问题：\n"
         ans2 = ""
         for i in range(len(returnSet[1])):
-            ans2 = ans2 + "%d、" % (i + 1) + " 问题：%s\n" % str(returnSet[1][i]['question'], 'utf-8') + " 答案：%s" % str(returnSet[1][i]['answer'], 'utf-8')
+            ans2 = ans2 + "%d、" % (i + 1) + " 问题：%s\n" % str(returnSet[1][i]['question'], 'utf-8') + " 答案：%s" % str(returnSet[1][i]['answer'])
         ans = ans1 + ans2
     else:
         ans = "您问的问题太过深奥，Mike才疏学浅暂时无法为您解答，待我读书破万卷后成为您的百科机器人"
@@ -237,9 +227,8 @@ corpus, label = load_cut_save(filename,load=False)
 
 def main(question):
     if question != None:
-        query = question    #########此处会因语音无法识别还报错
+        query = question
         print("我 > %s" %query)
-       ##############
         answer3 = get_greeting(query,question_greeting,answer_greeting)
         # print(answer3)
         if answer3 is None:
