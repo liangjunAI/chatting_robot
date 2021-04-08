@@ -25,7 +25,7 @@ git clone https://github.com/liangjunAI/chatting_robot.git
 2.由于工程环境版本不同需重新序列化数据及模型训练后文件得到相关.oj结尾的文件
 python znwd_new.py
 
-3.运行demo开始智能问答聊天\n
+3.运行demo开始智能问答聊天
 python run_main.py
 
 4.创建属于自己的语料库，可以从上述数据介绍中进行修改/新增自己的语料库
