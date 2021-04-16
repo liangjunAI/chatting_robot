@@ -45,3 +45,6 @@ python run_main.py
 4.创建属于自己的语料库，可以从上述数据介绍中进行修改/新增自己的语料库
 
 
+![20190911203850153](https://user-images.githubusercontent.com/33650087/114993959-e22d4000-9ece-11eb-90e5-845026126c70.png)
+
+
