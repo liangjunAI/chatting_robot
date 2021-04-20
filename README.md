@@ -1,4 +1,4 @@
-# chatting_robot
+# Intelligent Answer System
 本方案根据自己制作的语料库，基于sklearn训练分类模型和模糊匹配方法实现一个简易的智能问答机器人
 具体方案思路可参考博客https://blog.csdn.net/qq_26535271/article/details/100748210
 
